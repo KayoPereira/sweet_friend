@@ -1,0 +1,43 @@
+<div class="container bg-white d-flex flex-column align-items-center my-3" style="min-height: calc(100vh - 100px); max-width: 90%;">
+  <div class="d-flex flex-column align-items-center mt-3 col-sm-12 col-md-6 col-lg-4">
+    <%= simple_form_for Draw.new, url: { controller: 'draws', action: 'raffle' }, class: "d-flex justify-content-center" do |f| %>
+      <%= f.submit "Sortear!!", class: "btn btn-primary text-white me-1 mt-3 raffle", disabled: Draw.where(user_id: current_user.id, event_id: params[:event_id]).first&.drawn_user_id.present? %>
+    <% end %>
+    <form url="<% event_draw_path(id: params[:event_id]) %>" method="post" class="mt-3 me-1">
+      <input type="submit" class="btn btn-danger text-white" value="Inscreva-se" <%= "disabled" if Draw.where(user_id: current_user.id, event_id: params[:event_id]).present? %>>
+    </form>
+  </div>
+  <% if @user_drawn != nil %>
+    <% @user_drawn_raffle.update!(was_drawn: true) %>
+    <div class="d-flex justify-content-center align-items-center row my-4 mx-2">
+      <div class="card-category d-flex flex-column justify-content-center align-items-center text-white bg-purple col-sm-12 col-md-9 col-lg-6 col-xl-6">
+        <h2 class="mt-2">Pessoa sorteada: <%= @user_drawn.first_name %> <%= @user_drawn.last_name %></h2>
+        <br>
+        <h3 class="mt-2"><%= @user_drawn.email %></h3>
+      </div>
+    </div>
+  <% else %>
+    <ul class="list-unstyled d-flex w-100 mt-3 row flex-wrap justify-content-center">
+      <% @draws&.each do |draw| %>
+        <li class="text-decoration-none w-100 mx-1 col-sm-12 col-md-6 col-lg-4 my-3" style="width: 450px !important">
+          <div class="card-category d-flex flex-column justify-content-center align-items-center w-100 text-white bg-purple" style="word-wrap: break-word;">
+            <h2 class="mt-2"><%= draw.user.first_name %> <%= draw.user.last_name %></h2>
+            <br>
+            <h3 class="mt-2 text-truncate" style=""><%= draw.user.email.size > 20 ? draw.user.email.first(20) + "..." : draw.user.email %></h3>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+
+<script>
+  const button = document.querySelector('.raffle')
+  const token = document.querySelector('meta[name="csrf-token"]').content
+
+  button.addEventListener('click', (event) => {
+    setTimeout(() => {
+    window.location.reload()
+    }, 1000);
+  })
+</script>

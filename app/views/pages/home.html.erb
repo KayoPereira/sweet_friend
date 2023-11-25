@@ -1,2 +1,20 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container d-flex justify-content-center align-items-center bg-black" style="height: calc(100vh - 68px); overflow: hidden;">
+  <h1 class="text-white title-h1" id="title-typed" style="font-size: 42px;">Sorteio de cria</h1>
+  <%= image_tag "digo_kmed.png", class: "walking-image digo" %>
+  <%= image_tag "alyson_nareba.png", class: "walking-image alyson" %>
+  <%= image_tag "festa_em_ipanema.png", class: "walking-image kayo" %>
+  <%= image_tag "paulo_atleta.png", class: "walking-image paulo" %>
+</div>
+
+<script>
+  // evento para quando a página for carregada
+  window.addEventListener("load", function() {
+    // window.location.reload();
+    const options = {
+      strings: ['Pega', 'no meu', 'piruuuuuuuuUUU!!!'],
+      typeSpeed: 100,
+      loop: true,
+    };
+    const typed = new Typed('#title-typed', options);
+  });
+</script>

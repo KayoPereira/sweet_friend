@@ -5,4 +5,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  resources :events do
+    resources :draws, only: [ :index, :create, :destroy ]
+    post "/raffle", to: "draws#raffle"
+    patch "/drawn", to: 'draws#drawn'
+  end
 end

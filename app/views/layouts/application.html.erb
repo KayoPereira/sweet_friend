@@ -8,11 +8,23 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
   </head>
 
-  <body><%= render "shared/navbar" %>
-<%= render "shared/flashes" %>
-
+  <body class="bg-black"><%= render "shared/navbar" %>
+    <%= render "shared/flashes" %>
     <%= yield %>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const options = {
+          strings: ['Pega', 'no meu', 'piruuuuuuuuUUU!!!'],
+          typeSpeed: 100,
+          loop: true,
+        };
+
+        const typed = new Typed('#title-typed', options);
+      });
+    </script>
+
   </body>
 </html>

@@ -1,0 +1,16 @@
+<div class="container bg-black">
+  <ul class="list-unstyled mt-3">
+    <% @events.each_with_index do |event, index| %>
+      <% next if event.date.past?  %>
+      <%= link_to event_draws_path(event_id: event.id), class: 'text-decoration-none' do %>
+        <li class="text-decoration-none <%= index != 0 ? "my-3" : "mb-3" %>">
+          <div class="card-category d-flex flex-column justify-content-center align-items-center" style="background: linear-gradient(to bottom, #FFAEF1, #5603BD, #00E1D9, #009665, #FFF58C, #FDA600, #FF5F5F);">
+            <h2 class="mt-2 text-black"><%= event.name %></h2>
+            <br>
+            <h3 class="mb-2 text-black"><%= event.date.strftime('%A, %d/%m/%Y') %></h3>
+          </div>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
